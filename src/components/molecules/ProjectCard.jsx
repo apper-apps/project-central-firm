@@ -27,33 +27,33 @@ switch (status) {
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-2">
-            <h3 
+<h3 
               className="font-semibold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors truncate"
               onClick={() => navigate(`/projects/${project.Id}`)}
             >
-              {project.name}
+              {project.Name}
             </h3>
 <span className={`px-2 py-1 rounded-full text-xs font-medium border flex-shrink-0 ${getStatusColor(project.status)}`}>
               {project.status}
             </span>
           </div>
           
-          {client && (
+{client && (
             <div className="flex items-center gap-1 mb-2">
               <ApperIcon name="User" size={14} className="text-gray-500" />
-              <span className="text-sm text-gray-600 truncate">{client.name}</span>
+              <span className="text-sm text-gray-600 truncate">{client.Name}</span>
             </div>
           )}
           
-          {project.description && (
+{project.description_c && (
             <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-              {project.description}
+              {project.description_c}
             </p>
           )}
-{project.deadline && (
+{project.deadline_c && (
             <div className="flex items-center gap-1 mb-2">
               <ApperIcon name="Calendar" size={14} className="text-gray-400" />
-              <span className="text-xs text-gray-600">Due: {formatDate(project.deadline)}</span>
+              <span className="text-xs text-gray-600">Due: {formatDate(project.deadline_c)}</span>
             </div>
           )}
 
@@ -80,9 +80,9 @@ className="h-1.5 rounded-full transition-all duration-300"
             </div>
           )}
 
-          {project.deliverables && (
+{project.deliverables_c && (
             <p className="text-xs text-gray-500 line-clamp-1">
-              <span className="font-medium">Deliverables:</span> {project.deliverables}
+              <span className="font-medium">Deliverables:</span> {project.deliverables_c}
             </p>
           )}
         </div>

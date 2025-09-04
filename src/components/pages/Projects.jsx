@@ -48,7 +48,7 @@ const [itemsPerPage, setItemsPerPage] = useState(25);
     try {
       setLoading(true);
       setError("");
-      const [projectsData, clientsData] = await Promise.all([
+const [projectsData, clientsData] = await Promise.all([
         projectService.getAll(),
         clientService.getAll()
       ]);
@@ -66,7 +66,7 @@ const [itemsPerPage, setItemsPerPage] = useState(25);
     loadData();
   }, []);
 
-  const getClientById = (clientId) => {
+const getClientById = (clientId) => {
     return clients.find(client => client.Id === parseInt(clientId));
   };
 
@@ -208,9 +208,9 @@ setEditingProject(null);
 
       {/* Filter and paginate projects */}
       {(() => {
-        const filteredProjects = projects.filter(project => {
+const filteredProjects = projects.filter(project => {
           if (!searchTerm) return true;
-          const client = getClientById(project.clientId);
+          const client = getClientById(project.clientId_c?.Id || project.clientId_c);
           return project.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             project.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             client?.name?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -273,26 +273,26 @@ return (
                                   className="text-sm font-medium text-gray-900 hover:text-blue-600 cursor-pointer"
                                   onClick={() => navigate(`/projects/${project.Id}`)}
                                 >
-                                  {project.name}
+{project.Name}
                                 </div>
-                                {project.description && (
+{project.description_c && (
                                   <div className="text-sm text-gray-500 max-w-xs truncate">
-                                    {project.description}
+                                    {project.description_c}
                                   </div>
                                 )}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                              {client?.name || 'No Client'}
+<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {client?.Name || 'No Client'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                project.status === 'Active' ? 'bg-green-100 text-green-800' :
-                                project.status === 'On Hold' ? 'bg-yellow-100 text-yellow-800' :
-                                project.status === 'Completed' ? 'bg-blue-100 text-blue-800' :
-                                'bg-gray-100 text-gray-800'
-                              }`}>
-                                {project.status}
+project.status_c === 'In Progress' ? 'bg-green-100 text-green-800' :
+                project.status_c === 'On Hold' ? 'bg-yellow-100 text-yellow-800' :
+                project.status_c === 'Completed' ? 'bg-blue-100 text-blue-800' :
+                'bg-gray-100 text-gray-800'
+              }`}>
+                {project.status_c || 'Planning'}
                               </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
@@ -306,8 +306,8 @@ return (
                                 <span className="text-sm text-gray-600">{project.progress || 0}%</span>
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                              {project.endDate ? new Date(project.endDate).toLocaleDateString() : 'No due date'}
+<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {project.deadline_c ? new Date(project.deadline_c).toLocaleDateString() : 'No due date'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <div className="flex items-center justify-end space-x-2">
